@@ -1,0 +1,128 @@
+<script type="text/javascript" src="jquery.min.js"></script>
+
+<style type="text/css">
+   #myCarousel {
+        width: 1000px;
+        height: 300px;
+        overflow: hidden;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+    }
+
+        #myCarousel .myCarousel-inner {
+            width: 4000px;
+            height: 300px;
+            overflow: hidden;
+        }
+
+        #myCarousel .item {
+            display: inline-block;
+            float: left;
+            height: 300px;
+            width: 1000px;
+            background-color: rgba(128, 128, 128, 0.19);
+        }
+
+            #myCarousel .item img {
+                height: 300px;
+                width: 900px;
+                margin-left: 50px;
+            }
+
+        #myCarousel .indicators {
+            position: absolute;
+            left: 400px;
+            top: 220px;
+        }
+
+            #myCarousel .indicators li {
+                text-decoration: none;
+                display: inline-block;
+                width: 10px;
+                height: 10px;
+                border: 1px solid black;
+                margin-left: 20px;
+                cursor:pointer;
+                border-radius:5px;
+            }
+
+                #myCarousel .indicators li.active {
+                    background-color: white;
+                }
+                #myCarousel .indicators li:hover {
+                    background-color: lightgray;
+                }
+
+</style>
+
+<div class="whole-container">
+
+    <div class="slider">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <div class="myCarousel-inner" role="listbox">
+                <div class="item active">
+                    <img src="download1.jpg" alt="first pic">
+                </div>
+
+                <div class="item">
+                    <img src="download.jpg" alt="first pic">
+                </div>
+                <div class="item">
+                    <img src="Santosh.jpg" alt="first pic">
+                </div>
+
+                <div class="item">
+                    <img src="byke.jpg" alt="first pic">
+                </div>
+            </div>
+            <ul class="indicators">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+
+    </div>
+    
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var stopSlide = false;
+        var count = 0
+        var imagesCount = $(".myCarousel-inner .item").length;
+        var imageDivWidth = $(".myCarousel-inner .item").width();
+
+        $(".myCarousel-inner .item").mouseleave(function () {
+            stopSlide = false;
+        });
+        $(".myCarousel-inner .item").mouseenter(function () {
+            stopSlide = true;
+        });
+
+        $("#myCarousel ul.indicators li").click(function () {
+            stopSlide = true;
+            stopSlide = false;
+            count = $(this).index();
+            $("#myCarousel li").removeClass("active");
+            $("#myCarousel li:nth-of-type(" + count + ")").addClass("active");
+        });
+        setInterval(function () {
+            if (stopSlide !== true) {
+                if (count === imagesCount)
+                    count = 0;
+
+                $('.myCarousel-inner').css('margin-left', -imageDivWidth * count);
+                count = count + 1;
+                $("#myCarousel li").removeClass("active");
+                $("#myCarousel li:nth-of-type(" + count + ")").addClass("active");
+            }
+        }, 2000);
+    });
+
+
+</script>
